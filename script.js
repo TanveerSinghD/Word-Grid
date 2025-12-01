@@ -50,15 +50,6 @@ async function init() {
       })
     );
     boardEl.addEventListener("click", focusMobileInput);
-    if (mobileInput) {
-      mobileInput.addEventListener("keydown", handlePhysicalKey);
-      mobileInput.addEventListener("blur", () => {
-        if (isMobile.matches) {
-          setTimeout(() => focusMobileInput(), 0);
-        }
-      });
-    }
-    focusMobileInput();
   } catch (err) {
     console.error(err);
     showMessage("Word list failed to load. Try refreshing or using a local server.");
@@ -83,7 +74,6 @@ function startGame() {
   guessHistory = [];
   moodScore = 0;
   setBackgroundMood(0);
-  focusMobileInput();
 }
 
 function buildBoard() {
@@ -149,7 +139,6 @@ function handlePhysicalKey(event) {
 
 function handleInput(key) {
   if (gameOver) return;
-  focusMobileInput();
   if (key === "Enter") {
     submitGuess();
   } else if (key === "Del") {

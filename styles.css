@@ -65,7 +65,7 @@ body::after {
 }
 
 .page {
-  width: min(560px, 100%);
+  width: min(640px, 100%);
   display: grid;
   gap: 20px;
 }
@@ -385,11 +385,6 @@ body::after {
   0% {
     background-position: 0% 40%;
   }
-
-  /* Ensure scroll gestures work naturally on very small screens */
-  body {
-    touch-action: pan-y;
-  }
   100% {
     background-position: 100% 60%;
   }
@@ -469,5 +464,50 @@ body::after {
     min-width: 30px;
     padding: 9px 7px;
     font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .page {
+    gap: 14px;
+  }
+
+  .header {
+    padding: 12px;
+  }
+
+  .board {
+    grid-template-columns: repeat(5, minmax(36px, 1fr));
+    gap: 6px;
+    padding: 10px 12px;
+    min-height: 280px;
+  }
+
+  .tile {
+    font-size: 16px;
+  }
+
+  .keyboard {
+    padding: 8px;
+    gap: 5px;
+  }
+
+  .key-row {
+    gap: 5px;
+  }
+
+  .key {
+    min-width: 26px;
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+
+  .pill-round {
+    font-size: 12px;
+    padding: 6px 9px;
+  }
+
+  .pill {
+    padding: 9px 12px;
   }
 }
