@@ -32,7 +32,8 @@ body {
   justify-content: center;
   padding: 32px 16px 48px;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body::before {
@@ -384,6 +385,11 @@ body::after {
   0% {
     background-position: 0% 40%;
   }
+
+  /* Ensure scroll gestures work naturally on very small screens */
+  body {
+    touch-action: pan-y;
+  }
   100% {
     background-position: 100% 60%;
   }
@@ -406,6 +412,7 @@ body::after {
     padding: 22px 12px 36px;
     align-items: flex-start;
     overflow-y: auto;
+    touch-action: pan-y;
   }
 
   .board {
