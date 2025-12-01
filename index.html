@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Grid</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <div class="title-wrap">
+        <div class="dot"></div>
+        <h1 class="title">Word Grid</h1>
+      </div>
+      <div class="difficulty">
+        <button class="pill-round easy active" data-difficulty="easy" aria-pressed="true">Easy</button>
+        <button class="pill-round medium" data-difficulty="medium" aria-pressed="false">Medium</button>
+        <button class="pill-round hard" data-difficulty="hard" aria-pressed="false">Hard</button>
+      </div>
+      <div class="controls">
+        <button id="new-game" class="pill">New Game</button>
+      </div>
+    </header>
+
+    <section class="board-wrap">
+      <section class="board" id="board"></section>
+      <div id="message" class="message" aria-live="polite"></div>
+    </section>
+    <section class="keyboard" id="keyboard"></section>
+
+    <div class="end-overlay" id="end-overlay" role="dialog" aria-modal="true" aria-live="polite">
+      <div class="end-card">
+        <div id="end-text" class="end-text"></div>
+        <div id="end-stats" class="end-stats"></div>
+        <div class="end-actions">
+          <button id="play-again" class="pill">Play Again</button>
+          <button id="share-result" class="pill ghost">Copy Result</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
