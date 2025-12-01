@@ -25,6 +25,7 @@ const playAgainBtn = document.getElementById("play-again");
 const shareBtn = document.getElementById("share-result");
 const difficultyBtns = document.querySelectorAll(".pill-round");
 const mobileInput = document.getElementById("mobile-input");
+const isMobileFocus = () => isMobile.matches && document.activeElement === mobileInput;
 
 const boardEl = document.getElementById("board");
 const keyboardEl = document.getElementById("keyboard");
@@ -50,6 +51,13 @@ async function init() {
       })
     );
     boardEl.addEventListener("click", focusMobileInput);
+    if (mobileInput) {
+      mobileInput.addEventListener("input", handleMobileInput);
+      mobileInput.addEventListener("keydown", handleMobileKeydown);
+      mobileInput.addEventListener("blur", () => {
+        // Do not force focus; only re-open when tapping the grid.
+      });
+    }
   } catch (err) {
     console.error(err);
     showMessage("Word list failed to load. Try refreshing or using a local server.");
@@ -121,11 +129,16 @@ function createKey(label, extraClass = "") {
   button.className = `key ${extraClass}`.trim();
   button.dataset.key = label;
   button.textContent = label;
-  button.addEventListener("click", () => handleInput(label));
+  button.addEventListener("click", () => {
+    blurMobileInput();
+    handleInput(label);
+  });
   return button;
 }
 
 function handlePhysicalKey(event) {
+  // When typing in the mobile input, let its handler manage events to avoid double-entry.
+  if (isMobileFocus()) return;
   if (gameOver) return;
   const key = event.key;
   if (key === "Enter") {
@@ -152,6 +165,35 @@ function focusMobileInput() {
   if (isMobile.matches && mobileInput) {
     mobileInput.focus({ preventScroll: true });
   }
+}
+
+function blurMobileInput() {
+  if (isMobile.matches && mobileInput && isMobileFocus()) {
+    mobileInput.blur();
+  }
+}
+
+function handleMobileKeydown(event) {
+  if (!isMobileFocus()) return;
+  const key = event.key;
+  if (key === "Enter") {
+    event.preventDefault();
+    handleInput("Enter");
+  } else if (key === "Backspace" || key === "Delete") {
+    event.preventDefault();
+    handleInput("Del");
+  }
+}
+
+function handleMobileInput(event) {
+  if (!isMobileFocus()) return;
+  const value = event.target.value || "";
+  if (!value) return;
+  const letters = value.toUpperCase().replace(/[^A-Z]/g, "");
+  for (const ch of letters) {
+    handleInput(ch);
+  }
+  event.target.value = "";
 }
 
 function addLetter(letter) {
