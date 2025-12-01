@@ -352,6 +352,16 @@ body::after {
   margin-bottom: 12px;
 }
 
+.mobile-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  padding: 0;
+}
+
 .end-stats {
   color: var(--text);
   font-weight: 600;
@@ -394,6 +404,8 @@ body::after {
 @media (max-width: 560px) {
   body {
     padding: 22px 12px 36px;
+    align-items: flex-start;
+    overflow-y: auto;
   }
 
   .board {
@@ -450,5 +462,15 @@ body::after {
     min-width: 30px;
     padding: 9px 7px;
     font-size: 13px;
+  }
+
+  .keyboard {
+    display: none;
+  }
+
+  .mobile-input {
+    pointer-events: auto;
+    width: 1px;
+    height: 1px;
   }
 }

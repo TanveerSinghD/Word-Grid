@@ -15,6 +15,7 @@ let guessHistory = [];
 const STORAGE_KEY = "word-grid-stats";
 let difficulty = "easy";
 let wordBuckets = { easy: [], medium: [], hard: [] };
+const isMobile = window.matchMedia("(max-width: 600px)");
 const rootStyle = document.documentElement.style;
 const MAX_MOOD_SCORE = WORD_LENGTH * 2 * MAX_GUESSES;
 const endOverlay = document.getElementById("end-overlay");
@@ -23,6 +24,7 @@ const endStats = document.getElementById("end-stats");
 const playAgainBtn = document.getElementById("play-again");
 const shareBtn = document.getElementById("share-result");
 const difficultyBtns = document.querySelectorAll(".pill-round");
+const mobileInput = document.getElementById("mobile-input");
 
 const boardEl = document.getElementById("board");
 const keyboardEl = document.getElementById("keyboard");
@@ -47,6 +49,15 @@ async function init() {
         startGame();
       })
     );
+    if (mobileInput) {
+      mobileInput.addEventListener("keydown", handlePhysicalKey);
+      mobileInput.addEventListener("blur", () => {
+        if (isMobile.matches) {
+          setTimeout(() => focusMobileInput(), 0);
+        }
+      });
+    }
+    focusMobileInput();
   } catch (err) {
     console.error(err);
     showMessage("Word list failed to load. Try refreshing or using a local server.");
@@ -71,6 +82,7 @@ function startGame() {
   guessHistory = [];
   moodScore = 0;
   setBackgroundMood(0);
+  focusMobileInput();
 }
 
 function buildBoard() {
@@ -136,12 +148,19 @@ function handlePhysicalKey(event) {
 
 function handleInput(key) {
   if (gameOver) return;
+  focusMobileInput();
   if (key === "Enter") {
     submitGuess();
   } else if (key === "Del") {
     removeLetter();
   } else if (/^[A-Z]$/.test(key)) {
     addLetter(key);
+  }
+}
+
+function focusMobileInput() {
+  if (isMobile.matches && mobileInput) {
+    mobileInput.focus({ preventScroll: true });
   }
 }
 
