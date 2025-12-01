@@ -470,14 +470,4 @@ body::after {
     padding: 9px 7px;
     font-size: 13px;
   }
-
-  .keyboard {
-    display: none;
-  }
-
-  .mobile-input {
-    pointer-events: auto;
-    width: 1px;
-    height: 1px;
-  }
 }

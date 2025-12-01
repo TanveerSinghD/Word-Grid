@@ -49,6 +49,7 @@ async function init() {
         startGame();
       })
     );
+    boardEl.addEventListener("click", focusMobileInput);
     if (mobileInput) {
       mobileInput.addEventListener("keydown", handlePhysicalKey);
       mobileInput.addEventListener("blur", () => {
