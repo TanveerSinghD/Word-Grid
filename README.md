@@ -2,7 +2,7 @@
 
 A Wordle-style five-letter guessing game built with plain HTML/CSS/JS—no build step or framework required.
 
-##Game Link
+## Game Link
 https://tanveersinghd.github.io/Word-Grid/
 
 ## Features
