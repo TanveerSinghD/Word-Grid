@@ -2,6 +2,9 @@
 
 A Wordle-style five-letter guessing game built with plain HTML/CSS/JS—no build step or framework required.
 
+##Game Link
+https://tanveersinghd.github.io/Word-Grid/
+
 ## Features
 - 6 attempts to guess a 5-letter word; keyboard or on-screen keys work.
 - Tile and key coloring: green = correct spot, yellow = wrong spot but in word, grey = not in word.
